@@ -1,0 +1,207 @@
+openapi: 3.0.1
+servers:
+  - url: https://apigargoyle.com
+    description: Default server
+info:
+  title: Gargoyle API
+  contact:
+    name: Customer Support
+    url: https://www.cyr3con-screen.com
+    email: support@cybersecurityworks.com
+  version: 1.0.0
+  description: >
+    # Introduction
+    
+    ## API Categories
+
+    Below is how these APIs are arranged
+
+    ## API Operations
+
+    ### Account Operations
+
+    Below is the list of supported operations
+
+    # Authentication
+  
+    Gargoyle offers two forms of authentication:
+      
+      - Basic HTTP Authentocation
+      - API Key
+paths:
+  /v1/account/login:
+    post:
+      summary: LOGIN
+      description: >-
+        Use API credentials to log into the API
+      parameters:
+        - in: header
+          name: userId
+          schema:
+            type: string
+            example: denis
+          required: true
+          description: User ID
+        - in: header
+          name: password
+          schema:
+            type: string
+            example: password
+          required: true
+          description: User password
+      responses:
+        '200':
+          description: Return a 200 status to indicate that the data was received successfully
+  /docs:
+    get:
+      summary: DOCS
+      description: Return all general APIs
+      parameters:
+        - in: header
+          name: userId
+          schema:
+            type: string
+            example: denis
+          required: true
+          description: ID of the user
+        - in: header
+          name: apiKey
+          schema:
+            type: string
+            format: uuid
+            example: 00000000-0000-0000-0000-000000000001
+          required: false
+          description: API Key of the user
+          responses:
+            '200':
+              description: Return a 200 status to indicate that the data was received successfully
+  /docs/diligence:
+    get:
+      summary: DILIGENCE API
+      description: Return all general APIs
+      parameters:
+        - in: header
+          name: userId
+          schema:
+            type: string
+            example: denis
+          required: true
+          description: ID of the user
+        - in: header
+          name: apiKey
+          schema:
+            type: string
+            format: uuid
+            example: 00000000-0000-0000-0000-000000000001
+          required: false
+          description: API Key of the user
+          responses:
+            '200':
+              description: Return a 200 status to indicate that the data was received successfully
+  /docs/forecast:
+    get:
+      summary: FORECAST API
+      description: Return all general APIs
+      parameters:
+        - in: header
+          name: userId
+          schema:
+            type: string
+            example: denis
+          required: true
+          description: ID of the user
+        - in: header
+          name: apiKey
+          schema:
+            type: string
+            format: uuid
+            example: 00000000-0000-0000-0000-000000000001
+          required: false
+          description: API Key of the user
+          responses:
+            '200':
+              description: Return a 200 status to indicate that the data was received successfully
+  /v1/software-cpe/mappings/files:
+    post:
+      summary: /v1/software-cpe/mappings/files
+      description: Sending data using `multipart/form-data`
+      parameters:
+        - in: parameter
+          name: from
+          schema:
+            type: string
+            format: date
+            example: 2021-01-30
+          required: false
+          description: Date from which records needs to be fetched.
+        - in: parameter
+          name: to
+          schema:
+            type: string
+            format: date
+            example: 2021-01-30
+        - in: header
+          name: userId
+          schema:
+            type: string
+            example: denis
+          required: true
+          description: ID of the user
+        - in: header
+          name: apiKey
+          schema:
+            type: string
+            format: uuid
+            example: 00000000-0000-0000-0000-000000000001
+          required: false
+          description: API Key of the user
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+          required: false
+          description: Date to which records needs to be fetched.
+          responses:
+            '200':
+              description: Return a 200 status to indicate that the data was received successfully
+      security:
+        - http-basic: []
+        - api_key: []
+components:
+  securitySchemes:
+    http-basic:
+      type: http
+      scheme: basic
+    http-bearer:
+      type: http
+      scheme: bearer
+    api_key:
+      type: apiKey
+      name: apiKey
+      in: header
+schemas:
+    SoftwareCpeCveMappingsSearchCriteria:
+      type: object
+      properties:
+        from:
+          type: localDate
+          required: true
+          description: Date from which records needs to be fetched.
+          example: 10
+          format: date
+        to:
+          type: localDate
+          description: Date till which records needs to be fetched.
+          examples: 10
+    MultipartFileRequestDto:
+      type: object
+      properties:
+        file:
+          type:  string
+          format: binary
+          required: true

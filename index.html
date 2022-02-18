@@ -1,0 +1,132 @@
+<!doctype html>
+<html>
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132775238-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-132775238-1');
+    </script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+    <script type="text/javascript'" src="rapidoc-min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;600&family=Roboto+Mono&display=swap"
+        rel="stylesheet">
+    <style>
+        .size {
+    width: 100px;
+    height: 30px;
+    font-size: 13px;
+    margin: 0 2px;
+    padding: 0 8px;
+    border-radius: 2px;
+    outline: none;
+    color: #fff;
+}
+
+.btn {
+    background-color: #2069e0;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+.txt {
+    background-color: #2e2e2e;
+    border: 1px solid #2069e0;
+}
+
+.table {
+    border: 1px solid #444;
+    border-collapse: collapse;
+}
+
+.table td {
+    font-size: 12px;
+    font-family: 'Roboto Mono';
+    border: 1px solid #444;
+    padding: 8px;
+}
+
+.table th {
+    font-size: 11px;
+    font-family: 'Open Sans';
+    border: 1px solid #444;
+    padding: 8px;
+    background: #222;
+}
+
+datalist {
+    background-color: #222;
+    border: 1px solid #2069e0;
+}
+
+rapi-doc {
+    width: 100%;
+}
+    </style>
+</head>
+
+<body>
+    <rapi-doc 
+        id="thedoc" 
+        spec-url="/src/specs/auth.yaml" 
+        api-key-name="apiKey" 
+        api-key-location="header"
+        api-key-value="-" 
+        show-info="true" 
+        theme="light" 
+        render-style="read" 
+        show-header="false"
+        allow-authentication="false">
+
+    </rapi-doc>
+        function setApiServer(ev) {
+            const docEl = document.getElementById('thedoc');
+            const trEl = ev.target.closest('tr');
+            const serverUrl = trEl.querySelector('#server-url').value;
+            result = docEl.setApiServer(serverUrl);
+            ev.target.innerText = result ? 'Applied !' : 'Failed';
+            ev.target.style.backgroundColor = result ? 'green' : 'orangered';
+            window.setTimeout(function () {
+                ev.target.innerText = 'Apply';
+                ev.target.style.backgroundColor = '#2069e0';
+            }, 5000)
+
+        }
+
+        function clearSecurityKeys(ev) {
+            const docEl = document.getElementById('thedoc');
+            docEl.removeAllSecurityKeys();
+        }
+
+        function setSecurity(ev, securityType) {
+            const docEl = document.getElementById('thedoc');
+            const trEl = ev.target.closest('tr');
+            let result;
+            if (securityType === 'http') {
+                const securitySchemeId = trEl.querySelector('#http-security-scheme-id').value;
+                const username = trEl.querySelector('#http-username').value;
+                const password = trEl.querySelector('#http-password').value;
+                result = docEl.setHttpUserNameAndPassword(securitySchemeId, username, password);
+            } else if (securityType === 'apikey') {
+                const securitySchemeId = trEl.querySelector('#api-security-scheme-id').value;
+                const newApiToken = trEl.querySelector('#api-key-value').value;
+                result = docEl.setApiKey(securitySchemeId, newApiToken);
+            }
+            ev.target.innerText = result ? 'Applied !' : 'Failed';
+            ev.target.style.backgroundColor = result ? 'green' : 'orangered';
+            window.setTimeout(function () {
+                ev.target.innerText = 'Apply';
+                ev.target.style.backgroundColor = '#2069e0';
+            }, 5000)
+        }
+    </script> -->
+
+</body>
+
+</html>
